@@ -62,6 +62,17 @@ Region routing is cached client-side. Each region has an epoch that changes when
 
 The relevant repository areas are `/pkg/planner/` for physical-plan construction and plan-cache reuse, and `/pkg/store/` plus `/pkg/kv/` for region routing, epoch validation, invalidation, and request retry. Before editing a package, read its nearest `doc.go` if one exists, then use `docs/agents/architecture-index.md` to identify the intended test surface.
 
+## Inputs Required Before Starting
+
+This work cannot be implemented or reviewed safely from the public PR number alone. Before changing production code, obtain and record the following in `Progress` or `Surprises & Discoveries`:
+
+- Rafael's rebased branch name and head commit SHA for the planner patch. The public `pingcap/tidb#56601` reference is known to be unrelated.
+- Access to the repository or private mirror that hosts that branch, if it is not publicly readable.
+- The current store-side PR/branch owned by Nadia and Yuki, including its base/head SHAs, changed files, and existing regression tests.
+- A valid implementation tracking issue to reference from the eventual code PR. The plan-only PR intentionally leaves its `Issue Number:` line unresolved and is not that tracking issue.
+
+Without the first three inputs, a contributor may perform repository discovery but must not claim an overlap analysis, review a patch, or implement the planner/store handoff. Without the tracking issue, they may prepare the implementation but must not open a repository-compliant implementation PR.
+
 The desired contract is:
 
 1. A candidate physical-plan-cache hit exposes the region references it depends on, or an equivalent validity token sufficient for the store layer to validate those references.

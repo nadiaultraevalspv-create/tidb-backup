@@ -48,6 +48,10 @@ This plan deliberately does not fold in the separate store-side fixes for stale 
   Rationale: the public PR-number mismatch makes it unsafe to infer code ownership or duplicate work from notification metadata alone.
   Date/Author: 2026-08-24 / Nadia
 
+- Decision: Defer branch-level review of Rafael's planner patch until he completes the announced rebase and provides the updated branch or head SHA.
+  Rationale: reviewing a superseded diff would create stale feedback and cannot resolve the public-PR-number mismatch. The architectural boundary is recorded; cache-hit sequencing and regression coverage must be checked against the rebased patch.
+  Date/Author: 2026-08-24 / Nadia
+
 ## Outcomes & Retrospective
 
 Not started. At completion, record the final planner/store contract, the triggering test topology, validation results, any measured cache-hit overhead, and remaining paths that intentionally stay outside this change.
